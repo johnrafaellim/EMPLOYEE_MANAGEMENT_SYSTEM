@@ -287,7 +287,7 @@ export const getEmployeeAttendanceDetails = async (req, res) => {
       });
     }
 
-    const userDoc = (await User.findOne({ email: employee.workEmail }))
+    const userDoc = await User.findOne({ email: employee.workEmail });
     const userObjectId = userDoc ? userDoc._id : null;
     const employeeIds = [employee._id, userObjectId].filter(Boolean);
 
@@ -314,7 +314,7 @@ export const getEmployeeAttendanceDetails = async (req, res) => {
     const leaveRequest = leaves.map((leave) => ({
       id: leave._id.toString(),
       startDate: formatDateToString(leave.fromDate),
-      endDate: formatDateToString(leavel.toDate),
+      endDate: formatDateToString(leave.toDate),
       reason: leave.reason,
       status: leave.status === 'Pending' ? 'Applied' : leave.status,
       createdAt: leave.createdAt
@@ -325,12 +325,12 @@ export const getEmployeeAttendanceDetails = async (req, res) => {
     return res.status(200).json({
       success: true,
       employee: {
-        _id: employee.id,
+        _id: employee._id,
         id: employee.employeeId,
         name: employee.name,
-        joiningDate: formatDateToString(employee.joiningDate)
+        joiningDate: formatDateToString(employee.joiningDate),
         attendanceRecords,
-        leaveRequest
+        leaveRequest,
       },
     });
   } catch (e) {

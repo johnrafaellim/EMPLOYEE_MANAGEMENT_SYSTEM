@@ -19,7 +19,6 @@ adminRouter.get(
   isAdmin,
   getEmployeeAttendanceDetails
 );
-
-adminRouter.put('/leaves/:id', verifyToken, isAdmin, decideLeave);
+adminRouter.put('/leave/:id', verifyToken, isAdmin, decideLeave);
 
 export default adminRouter;

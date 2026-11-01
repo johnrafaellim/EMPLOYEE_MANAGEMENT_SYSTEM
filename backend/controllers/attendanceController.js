@@ -89,7 +89,7 @@ export const getAttendanceHistory = async (req, res) => {
       employee: employeeId,
     })
       .sort({ date: -1 })
-      .populate('employee', 'name employee');
+      .populate('employee', 'name employeeId');
 
     res.status(200).json({
       success: true,
