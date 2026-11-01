@@ -1,6 +1,6 @@
-import { Announcement } from '../models/Announcement';
-import User from '../models/User';
-import Employee from '../models/Employee';
+import { Announcement } from '../models/Announcement.js';
+import User from '../models/User.js';
+import Employee from '../models/Employee.js';
 
 // to create an announcement
 export const createAnnouncement = async (req, res) => {

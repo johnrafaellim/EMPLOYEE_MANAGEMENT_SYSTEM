@@ -1,6 +1,6 @@
-import Employee from '../models/Employee';
+import Employee from '../models/Employee.js';
 import { Announcement } from '../models/Announcement.js';
-import Payroll from '../models/Payroll';
+import Payroll from '../models/Payroll.js';
 
 // for graphical representation of the data
 
