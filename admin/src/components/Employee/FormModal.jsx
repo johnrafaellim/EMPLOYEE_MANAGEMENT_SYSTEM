@@ -5,8 +5,8 @@ import {
   genderOptions,
   getTodayDate,
   salaryPeriodOptions,
-} from './employeePageUtils';
-import { employeeFormModalStyles as s } from '../../assets/dummyStyles';
+} from '../../utils/employeePageUtils.js';
+import { employeeFormModalStyles as s } from '../../assets/dummyStyles.jsx';
 
 const FieldError = ({ children }) =>
   children ? <p className={s.fieldError}>{children}</p> : null;

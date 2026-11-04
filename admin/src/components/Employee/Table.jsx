@@ -1,7 +1,7 @@
 import { BadgeCheck, Building2, Edit3, Eye, Trash2 } from 'lucide-react';
 import StatusPill from './StatusPill';
-import { formatSalaryPackage } from './employeePageUtils';
-import { employeeTableStyles as s } from '../../assets/dummyStyles';
+import { formatSalaryPackage } from '../../utils/employeePageUtils.js';
+import { employeeTableStyles as s } from '../../assets/dummyStyles.jsx';
 
 const Table = ({ employees, onDelete, onEdit, onView }) => (
   <section className={s.container}>

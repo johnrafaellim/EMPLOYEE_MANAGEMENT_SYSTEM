@@ -380,7 +380,7 @@ const Employee = () => {
             ? serverEmp.profileImage.startsWith('http') ||
               serverEmp.profileImage.startsWith('data:')
               ? serverEmp.profileImage
-              : `http://localhost:5000/${serverEmp.profileImage.replace(/\\/g, '/')}`
+              : `${import.meta.env.VITE_BACKEND_URL}/${serverEmp.profileImage.replace(/\\/g, '/')}`
             : createAvatarImage(initials),
           joiningDate: serverEmp.joiningDate
             ? serverEmp.joiningDate.split('T')[0]
@@ -402,6 +402,7 @@ const Employee = () => {
             mappedEmployee,
             ...currentEmployees,
           ]);
+
           showToast({
             title: 'Employee added',
             message: `${mappedEmployee.name} was added to the employee list.`,
@@ -447,7 +448,7 @@ const Employee = () => {
     setDeleting(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/employee/api/employee/${employee._id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/employee/${employee._id}`,
         {
           method: 'DELETE',
           headers: {

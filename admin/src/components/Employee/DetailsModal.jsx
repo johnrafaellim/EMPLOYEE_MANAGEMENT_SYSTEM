@@ -18,8 +18,8 @@ import {
   formatPhone,
   formatSalary,
   formatSalaryPackage,
-} from './employeePageUtils';
-import { employeeDetailsModalStyles as s } from '../../assets/dummyStyles';
+} from '../../utils/employeePageUtils.js';
+import { employeeDetailsModalStyles as s } from '../../assets/dummyStyles.jsx';
 
 const detailItems = [
   { label: 'Employee ID', key: 'id' },
