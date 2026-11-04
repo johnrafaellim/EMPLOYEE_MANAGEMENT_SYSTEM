@@ -1,4 +1,4 @@
-import ImageKit from '@imagekit/nodejs';
+import ImageKit, { toFile } from '@imagekit/nodejs';
 import fs from 'fs';
 
 const imageKit = new ImageKit({
@@ -12,10 +12,22 @@ export const uploadToImageKit = async (fileInput, fileName) => {
   try {
     let file;
 
+    // Handle Buffer (from Multer memory storage) using ImageKit's toFile helper
     if (Buffer.isBuffer(fileInput)) {
-      file = Buffer.from(fileInput, 'base64');
-    } else {
+      file = await toFile(fileInput, fileName);
+    }
+    // Handle Base64 / Data URI strings
+    else if (typeof fileInput === 'string' && fileInput.startsWith('data:')) {
+      file = fileInput;
+    }
+    // Handle local file path strings
+    else if (typeof fileInput === 'string') {
+      if (!fs.existsSync(fileInput)) {
+        throw new Error(`File path does not exist: ${fileInput}`);
+      }
       file = fs.createReadStream(fileInput);
+    } else {
+      throw new Error('Invalid file input type provided.');
     }
 
     return await imageKit.files.upload({
@@ -28,10 +40,10 @@ export const uploadToImageKit = async (fileInput, fileName) => {
   }
 };
 
-// to delete an image
-export const deleteToImageKit = async (url) => {
+// to delete an image (renamed to match controller call: deleteFromImageKit)
+export const deleteFromImageKit = async (url) => {
   try {
-    if (!url || typeof url !== 'string' || !url.includes('ik.imageKit'.io)) {
+    if (!url || typeof url !== 'string' || !url.includes('imagekit.io')) {
       return null;
     }
 
@@ -40,7 +52,7 @@ export const deleteToImageKit = async (url) => {
     if (!fileName) return null;
 
     const files = await imageKit.assets.list({
-      searchQuery: `name = ${fileName}`,
+      searchQuery: `name = "${fileName}"`,
     });
 
     if (files && files.length > 0) {
