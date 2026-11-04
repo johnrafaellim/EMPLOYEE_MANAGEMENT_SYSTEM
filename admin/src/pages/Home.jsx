@@ -1,6 +1,7 @@
 import Dashboard from '../components/Dashboard.jsx';
 import { useData } from '../context/DataContext.jsx';
 import { useEffect } from 'react';
+import Charts from '../components/Charts.jsx';
 
 const Home = () => {
   const {
@@ -50,6 +51,7 @@ const Home = () => {
         payrolls={payrolls}
         loading={loading}
       />
+      <Charts loading={loading} />
     </div>
   );
 };

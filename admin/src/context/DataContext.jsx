@@ -9,7 +9,7 @@ import { useAuth } from '../auth/useAuth.js';
 
 const DataContext = createContext(null);
 
-const BASE = process.env.VITE_BACKEND_URL;
+const BASE = import.meta.env.VITE_BACKEND_URL;
 
 export const DataProvider = ({ children }) => {
   const { user } = useAuth();
@@ -30,7 +30,7 @@ export const DataProvider = ({ children }) => {
 
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/employees`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/employee`,
           {
             headers: {
               Authorization: `Bearer ${user?.token}`,
@@ -82,11 +82,14 @@ export const DataProvider = ({ children }) => {
       if (!silent) setPayrollsLoading(true);
 
       try {
-        const res = await fetch(`${process.env.VITE_BACKEND_URL}/api/payroll`, {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/payroll`,
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        );
 
         const data = await res.json();
 
@@ -124,7 +127,7 @@ export const DataProvider = ({ children }) => {
       if (!silent) setAnnouncementsLoading(true);
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/announcements`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/announcements`,
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }
@@ -160,7 +163,7 @@ export const DataProvider = ({ children }) => {
 
       try {
         const res = await fetch(
-          `${process.env.VITE_BACKEND_URL}/api/admin/attendance/leaves`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/attendance/leaves`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
