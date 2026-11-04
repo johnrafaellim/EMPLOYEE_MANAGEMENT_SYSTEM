@@ -19,7 +19,7 @@ import { uploadToImageKit } from '../config/imageKit.js';
  * 10. Attempts to roll back created resources if database operations fail.
  * 11. Returns a success response with the newly created employee.
  *
- * @route POST /api/employees
+ * @route POST /api/employee
  * @param {Object} req - Express request containing employee data and uploaded image.
  * @param {Object} res - Express response containing the operation result.
  * @returns {Promise<void>} Sends an HTTP JSON response.
@@ -253,7 +253,7 @@ export const getEmployee = async (req, res) => {
  * 10. Attempts to clean up newly uploaded images when an error occurs.
  * 11. Returns the updated employee information or an appropriate error response.
  *
- * @route PUT /api/employees/:id
+ * @route PUT /api/employee/:id
  * @access Admin (authorization must be enforced by route middleware)
  * @param {Object} req - Express request containing the employee ID, updated data, and optional image.
  * @param {Object} res - Express response containing the update result.

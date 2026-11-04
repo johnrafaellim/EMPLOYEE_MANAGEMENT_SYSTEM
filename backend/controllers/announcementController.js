@@ -76,40 +76,40 @@ export const getAnnouncements = async (req, res) => {
           },
         ],
       };
+    }
 
-      const announcements = await Announcement.find(query)
-        .populate('recipient', 'name employeeId department designation')
-        .sort({ createdAt: -1 });
+    const announcements = await Announcement.find(query)
+      .populate('recipient', 'name employeeId department designation')
+      .sort({ createdAt: -1 });
 
-      let filtered = announcements;
+    let filtered = announcements;
 
-      if (user.role !== 'admin') {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        const todayStr = `${year}-${month}-${day}`;
+    if (user.role !== 'admin') {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0');
+      const day = String(today.getDate()).padStart(2, '0');
+      const todayStr = `${year}-${month}-${day}`;
 
-        filtered = announcements.filter((item) => {
-          const rawEndDate = item.toDate || item.fromDate || item.createdAt;
-          if (!rawEndDate) return true;
-          const endObj = new Date(rawEndDate);
-          if (Number.isNaN(endObj.getTime())) return true;
+      filtered = announcements.filter((item) => {
+        const rawEndDate = item.toDate || item.fromDate || item.createdAt;
+        if (!rawEndDate) return true;
+        const endObj = new Date(rawEndDate);
+        if (Number.isNaN(endObj.getTime())) return true;
 
-          const endYear = endObj.getFullYear();
-          const endMonth = String(endObj.getMonth() + 1).padStart(2, '0');
-          const endDay = String(endObj.getDate()).padStart(2, '0');
-          const endDateStr = `${endYear}-${endMonth}-${endDay}`;
+        const endYear = endObj.getFullYear();
+        const endMonth = String(endObj.getMonth() + 1).padStart(2, '0');
+        const endDay = String(endObj.getDate()).padStart(2, '0');
+        const endDateStr = `${endYear}-${endMonth}-${endDay}`;
 
-          return endDateStr >= todayStr;
-        });
-      }
-
-      return res.status(200).json({
-        success: true,
-        announcements: filtered,
+        return endDateStr >= todayStr;
       });
     }
+
+    return res.status(200).json({
+      success: true,
+      announcements: filtered,
+    });
   } catch (e) {
     return res.status(500).json({
       success: false,
