@@ -196,7 +196,7 @@ export const getAttendanceList = async (req, res) => {
           ? employee.profileImage.startsWith('http') ||
             employee.profileImage.startsWith('data:')
             ? employee.profileImage
-            : `http://localhost:5000/${employee.profileImage.replace(/\\/g, '/')}`
+            : `${import.meta.env.VITE_BACKEND_URL}/${employee.profileImage.replace(/\\/g, '/')}`
           : '';
 
         return {
