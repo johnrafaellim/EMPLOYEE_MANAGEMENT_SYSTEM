@@ -7,6 +7,7 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import Employee from './pages/Employee.jsx';
 import Attendance from './pages/Attendance.jsx';
 import Payroll from './pages/Payroll.jsx';
+import Leave from './pages/Leave.jsx';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/employees" element={<Employee />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/payroll" element={<Payroll />} />
+            <Route path="/leaves" element={<Leave />} />
           </Route>
         </Routes>
       </DataProvider>
