@@ -133,6 +133,9 @@ export const createPayroll = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: 'Payslip generated successfully.',
+      record: {
+        payrollId,
+      },
     });
   } catch (e) {
     return res.status(500).json({
