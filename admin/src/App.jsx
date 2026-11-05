@@ -4,6 +4,9 @@ import { AuthProvider } from './auth/AuthContext.jsx';
 import { DataProvider } from './context/DataContext.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
+import Employee from './pages/Employee.jsx';
+import Attendance from './pages/Attendance.jsx';
+import Payroll from './pages/Payroll.jsx';
 
 const App = () => {
   return (
@@ -13,6 +16,9 @@ const App = () => {
           <Route path="/login" element={<LoginForm />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
+            <Route path="/employees" element={<Employee />} />
+            <Route path="/attendance" element={<Attendance />} />
+            <Route path="/payroll" element={<Payroll />} />
           </Route>
         </Routes>
       </DataProvider>
