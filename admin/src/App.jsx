@@ -8,6 +8,7 @@ import Employee from './pages/Employee.jsx';
 import Attendance from './pages/Attendance.jsx';
 import Payroll from './pages/Payroll.jsx';
 import Leave from './pages/Leave.jsx';
+import Announcement from './pages/Announcement.jsx';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/payroll" element={<Payroll />} />
             <Route path="/leaves" element={<Leave />} />
+            <Route path="/announcements" element={<Announcement />} />
           </Route>
         </Routes>
       </DataProvider>
