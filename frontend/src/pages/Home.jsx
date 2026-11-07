@@ -1,7 +1,8 @@
 import Navbar from "../components/Navbar.jsx";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { clearEmployeeLogin, getEmployeeUser } from "../auth/employeeAuth.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { homePageStyles as s } from "../assets/dummyStyles.jsx";
 
 const pageTitles = {
   "/": "Dashboard",
@@ -103,9 +104,43 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    fetchRecords();
+
+    const interval = setInterval(() => {
+      fetchRecords();
+    }, 5000);
+
+    const handleFocus = () => {
+      fetchRecords();
+    };
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, []);
+
   return (
     <div>
       <Navbar onLogout={logout} />
+      <main className={s.main}>
+        <div className={s.container}>
+          <h1 className={s.heading}>
+            {pageTitles[location.pathname] || "Dashboard"}
+          </h1>
+          <Outlet
+            context={{
+              notify,
+              records,
+              setRecords,
+              fetchRecords,
+              joiningDate,
+            }}
+          />
+        </div>
+      </main>
     </div>
   );
 };
