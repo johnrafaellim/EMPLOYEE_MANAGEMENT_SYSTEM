@@ -89,7 +89,7 @@ export const getChartData = async (req, res) => {
 
     let series = [];
     const nowIST = new Date(
-      new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+      new Date().toLocaleString('en-PH', { timeZone: 'Asia/Kolkata' })
     );
     const todayYear = String(nowIST.getFullYear());
     const todayMonth = pad2(nowIST.getMonth() + 1);

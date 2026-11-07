@@ -20,7 +20,7 @@ const formatDate = (dateStr) => {
 
   const date = new Date(dateStr);
 
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('en-PH', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

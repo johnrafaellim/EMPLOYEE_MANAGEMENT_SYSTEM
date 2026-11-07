@@ -7,9 +7,11 @@ import {
   CheckCircle2,
   XCircle,
   Send,
+  Bell,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { getEmployeeUser } from "../auth/employeeAuth.js";
+import { dates, today } from "../utils/employeePanelData.js";
 
 const Stat = ({ icon: Icon, title, value, note }) => (
   <div className={s.statCard}>
@@ -200,6 +202,150 @@ const Dashboard = () => {
           note="all time"
         />
       </div>
+
+      <div>
+        <div className={s.announcementHeader}>
+          <span className={s.announcementHeaderIcon}>
+            <Bell size={20} />
+          </span>
+          <div>
+            <h2 className={s.announcementTitle}>Announcements</h2>
+            <p className={s.announcementSubtitle}>
+              Important broadcasts and updates from administration.
+            </p>
+          </div>
+        </div>
+
+        {activeAnnouncements.length === 0 ? (
+          <div className={s.emptyAnnouncements}>
+            <Bell className={s.emptyIcon} />
+            <p className={s.emptyText}>No active announcements posted.</p>
+          </div>
+        ) : (
+          <div className={s.announcementsGrid}>
+            {activeAnnouncements.map((item) => {
+              const isPersonal = item.sendTo === "Employee";
+              return (
+                <article
+                  key={item._id}
+                  onClick={() => setSelectedAnnouncement(item)}
+                  className={s.announcementCard}
+                >
+                  <div className={s.announcementCardDeco} />
+                  <div className={s.announcementCardInner}>
+                    <div>
+                      <div className={s.announcementCardHeader}>
+                        <h3 className={s.announcementCardTitle}>
+                          {item.title}
+                        </h3>
+                        <span
+                          className={`${s.announcementBadgeBase} ${
+                            isPersonal
+                              ? s.announcementBadgeDirect
+                              : s.announcementBadgeBroadcast
+                          }`}
+                        >
+                          {isPersonal ? "Direct" : "Broadcast"}
+                        </span>
+                      </div>
+                      <p className={s.announcementCardMessage}>
+                        {item.message}
+                      </p>
+                      {(item.fromDate || item.toDate) && (
+                        <div className={s.announcementCardDates}>
+                          <span>Active:</span>
+                          <span className={s.announcementCardDateChip}>
+                            {item.fromDate
+                              ? getFormattedDisplayDateOnly(item.fromDate)
+                              : "—"}
+                          </span>
+                          <span>to</span>
+                          <span className={s.announcementCardDateChip}>
+                            {item.toDate
+                              ? getFormattedDisplayDateOnly(item.toDate)
+                              : "—"}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className={s.announcementCardFooter}>
+                      <span>By Admin</span>
+                      <span>{getAnnouncementDisplayDate(item.createdAt)}</span>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {selectedAnnouncement && (
+        <div className={s.modalOverlay}>
+          <div className={s.modalContainer}>
+            <button
+              type="button"
+              onClick={() => setSelectedAnnouncement(null)}
+              className={s.modalCloseButton}
+            >
+              <X size={16} />
+            </button>
+            <div className={s.modalHeader}>
+              <span className={s.modalHeaderIcon}>
+                <Bell size={18} />
+              </span>
+              <div>
+                <span
+                  className={`${s.modalBadgeBase} ${
+                    selectedAnnouncement.sendTo === "Employee"
+                      ? s.modalBadgeDirect
+                      : s.modalBadgeBroadcast
+                  }`}
+                >
+                  {selectedAnnouncement.sendTo === "Employee"
+                    ? "Direct Message"
+                    : "Broadcast"}
+                </span>
+                <p className={s.modalDate}>
+                  {getAnnouncementDisplayDate(selectedAnnouncement.createdAt)}
+                </p>
+              </div>
+            </div>
+            <h3 className={s.modalTitle}>{selectedAnnouncement.title}</h3>
+            <div className={s.modalBody}>
+              <p className={s.modalMessage}>{selectedAnnouncement.message}</p>
+              {(selectedAnnouncement.fromDate ||
+                selectedAnnouncement.toDate) && (
+                <div className={s.modalPeriod}>
+                  <span>Active Period:</span>
+                  <span className={s.modalPeriodChip}>
+                    {selectedAnnouncement.fromDate
+                      ? getFormattedDisplayDateOnly(
+                          selectedAnnouncement.fromDate,
+                        )
+                      : "—"}
+                  </span>
+                  <span>to</span>
+                  <span className={s.modalPeriodChip}>
+                    {selectedAnnouncement.toDate
+                      ? getFormattedDisplayDateOnly(selectedAnnouncement.toDate)
+                      : "—"}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className={s.modalFooter}>
+              <button
+                type="button"
+                onClick={() => setSelectedAnnouncement(null)}
+                className={s.modalCloseAction}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const formatStatValue = (id, value) => {
     return `$ ${Math.round(value)}`;
   }
 
-  return Math.round(value).toLocaleString('en-US');
+  return Math.round(value).toLocaleString('en-PH');
 };
 
 const Dashboard = ({
