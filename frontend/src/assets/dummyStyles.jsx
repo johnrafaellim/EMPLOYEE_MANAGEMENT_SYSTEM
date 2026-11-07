@@ -62,7 +62,8 @@ export const dashboardPageStyles = {
   root: "space-y-8",
 
   // Stats grid
-  statsGrid: "grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+  statsGrid:
+    "grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
 
   // Stat card
   statCard:
@@ -211,7 +212,8 @@ export const navbarStyles = {
   getDesktopNavLinkClass: (isActive) => {
     const base =
       "inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-bold transition hover:-translate-y-0.5";
-    const active = "border-zinc-950 bg-zinc-950 text-white shadow-lg shadow-zinc-300";
+    const active =
+      "border-zinc-950 bg-zinc-950 text-white shadow-lg shadow-zinc-300";
     const inactive = "border-zinc-200 bg-white text-zinc-700";
     return `${base} ${isActive ? active : inactive}`;
   },
@@ -233,7 +235,8 @@ export const navbarStyles = {
   getMobileNavLinkClass: (isActive) => {
     const base =
       "inline-flex h-11 items-center gap-2 rounded-xl border px-4 text-sm font-bold transition";
-    const active = "border-zinc-950 bg-zinc-950 text-white shadow-lg shadow-zinc-300";
+    const active =
+      "border-zinc-950 bg-zinc-950 text-white shadow-lg shadow-zinc-300";
     const inactive = "border-zinc-200 bg-white text-zinc-700";
     return `${base} ${isActive ? active : inactive}`;
   },
@@ -249,50 +252,39 @@ export const loginPageStyles = {
   section:
     "grid w-full max-w-md overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl shadow-zinc-200/80 sm:rounded-3xl lg:max-w-5xl lg:grid-cols-[1fr_430px]",
 
-  leftPanel:
-    "hidden bg-zinc-950 p-10 text-white lg:block",
+  leftPanel: "hidden bg-zinc-950 p-10 text-white lg:block",
 
   leftPanelIcon:
     "mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-zinc-950",
 
-  leftPanelLabel:
-    "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
+  leftPanelLabel: "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
 
-  leftPanelTitle:
-    "mt-3 max-w-md text-4xl font-black leading-tight",
+  leftPanelTitle: "mt-3 max-w-md text-4xl font-black leading-tight",
 
-  leftPanelFeatures:
-    "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
+  leftPanelFeatures: "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
 
-  featureItem:
-    "rounded-2xl border border-white/10 bg-white/5 p-4",
+  featureItem: "rounded-2xl border border-white/10 bg-white/5 p-4",
 
-  form:
-    "min-w-0 p-5 sm:p-8",
+  form: "min-w-0 p-5 sm:p-8",
 
   formIcon:
     "mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white shadow-lg shadow-zinc-200 sm:mb-6 sm:h-13 sm:w-13",
 
-  formLabel:
-    "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
+  formLabel: "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
 
-  formTitle:
-    "mt-2 text-2xl font-black sm:text-3xl",
+  formTitle: "mt-2 text-2xl font-black sm:text-3xl",
 
   errorBox:
     "mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700",
 
-  inputLabel:
-    "mt-6 block",
+  inputLabel: "mt-6 block",
 
-  inputLabelText:
-    "mb-2 block text-sm font-black text-zinc-700",
+  inputLabelText: "mb-2 block text-sm font-black text-zinc-700",
 
   inputWrapper:
     "flex h-12 items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-3 transition focus-within:border-zinc-950 focus-within:bg-white focus-within:ring-4 focus-within:ring-zinc-200 sm:h-13 sm:px-4",
 
-  inputIcon:
-    "h-5 w-5 text-zinc-400",
+  inputIcon: "h-5 w-5 text-zinc-400",
 
   inputField:
     "h-full min-w-0 flex-1 bg-transparent text-sm font-bold outline-none placeholder:text-zinc-400",
@@ -303,16 +295,12 @@ export const loginPageStyles = {
   submitButton:
     "mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 text-sm font-black text-white shadow-lg shadow-zinc-200 transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:opacity-50 sm:h-13",
 
-  spinner:
-    "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
+  spinner: "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
 
-  spinnerCircle:
-    "opacity-25",
+  spinnerCircle: "opacity-25",
 
-  spinnerPath:
-    "opacity-75",
+  spinnerPath: "opacity-75",
 };
-
 
 export const signupPageStyles = {
   mainContainer:
@@ -321,56 +309,43 @@ export const signupPageStyles = {
   section:
     "grid w-full max-w-md overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl shadow-zinc-200/80 sm:rounded-3xl lg:max-w-5xl lg:grid-cols-[1fr_430px]",
 
-  leftPanel:
-    "hidden bg-zinc-950 p-10 text-white lg:block",
+  leftPanel: "hidden bg-zinc-950 p-10 text-white lg:block",
 
   leftPanelIcon:
     "mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-zinc-950",
 
-  leftPanelLabel:
-    "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
+  leftPanelLabel: "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
 
-  leftPanelTitle:
-    "mt-3 max-w-md text-4xl font-black leading-tight",
+  leftPanelTitle: "mt-3 max-w-md text-4xl font-black leading-tight",
 
-  leftPanelFeatures:
-    "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
+  leftPanelFeatures: "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
 
-  featureItem:
-    "rounded-2xl border border-white/10 bg-white/5 p-4",
+  featureItem: "rounded-2xl border border-white/10 bg-white/5 p-4",
 
-  form:
-    "min-w-0 p-5 sm:p-8",
+  form: "min-w-0 p-5 sm:p-8",
 
   formIcon:
     "mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white shadow-lg shadow-zinc-200 sm:mb-6 sm:h-13 sm:w-13",
 
-  formLabel:
-    "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
+  formLabel: "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
 
-  formTitle:
-    "mt-2 text-2xl font-black sm:text-3xl",
+  formTitle: "mt-2 text-2xl font-black sm:text-3xl",
 
   errorBox:
     "mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700",
 
-  inputLabelName:
-    "mt-6 block",
+  inputLabelName: "mt-6 block",
 
-  inputLabelEmail:
-    "mt-4 block",
+  inputLabelEmail: "mt-4 block",
 
-  inputLabelPassword:
-    "mt-4 block",
+  inputLabelPassword: "mt-4 block",
 
-  inputLabelText:
-    "mb-2 block text-sm font-black text-zinc-700",
+  inputLabelText: "mb-2 block text-sm font-black text-zinc-700",
 
   inputWrapper:
     "flex h-12 items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-3 transition focus-within:border-zinc-950 focus-within:bg-white focus-within:ring-4 focus-within:ring-zinc-200 sm:h-13 sm:px-4",
 
-  inputIcon:
-    "h-5 w-5 text-zinc-400",
+  inputIcon: "h-5 w-5 text-zinc-400",
 
   inputField:
     "h-full min-w-0 flex-1 bg-transparent text-sm font-bold outline-none placeholder:text-zinc-400",
@@ -381,20 +356,15 @@ export const signupPageStyles = {
   submitButton:
     "mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 text-sm font-black text-white shadow-lg shadow-zinc-200 transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:opacity-50 sm:h-13",
 
-  spinner:
-    "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
+  spinner: "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
 
-  spinnerCircle:
-    "opacity-25",
+  spinnerCircle: "opacity-25",
 
-  spinnerPath:
-    "opacity-75",
+  spinnerPath: "opacity-75",
 
-  signupFooter:
-    "mt-6 text-center text-xs font-bold text-zinc-500",
+  signupFooter: "mt-6 text-center text-xs font-bold text-zinc-500",
 
-  signupLink:
-    "text-zinc-950 underline transition hover:text-zinc-800",
+  signupLink: "text-zinc-950 underline transition hover:text-zinc-800",
 };
 
 export const verifyOtpPageStyles = {
@@ -404,35 +374,27 @@ export const verifyOtpPageStyles = {
   section:
     "grid w-full max-w-md overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-2xl shadow-zinc-200/80 sm:rounded-3xl lg:max-w-5xl lg:grid-cols-[1fr_430px]",
 
-  leftPanel:
-    "hidden bg-zinc-950 p-10 text-white lg:block",
+  leftPanel: "hidden bg-zinc-950 p-10 text-white lg:block",
 
   leftPanelIcon:
     "mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-zinc-950",
 
-  leftPanelLabel:
-    "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
+  leftPanelLabel: "text-sm font-bold uppercase tracking-[0.18em] text-zinc-400",
 
-  leftPanelTitle:
-    "mt-3 max-w-md text-4xl font-black leading-tight",
+  leftPanelTitle: "mt-3 max-w-md text-4xl font-black leading-tight",
 
-  leftPanelFeatures:
-    "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
+  leftPanelFeatures: "mt-10 grid gap-3 text-sm font-bold text-zinc-300",
 
-  featureItem:
-    "rounded-2xl border border-white/10 bg-white/5 p-4",
+  featureItem: "rounded-2xl border border-white/10 bg-white/5 p-4",
 
-  form:
-    "min-w-0 p-5 sm:p-8",
+  form: "min-w-0 p-5 sm:p-8",
 
   formIcon:
     "mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-950 text-white shadow-lg shadow-zinc-200 sm:mb-6 sm:h-13 sm:w-13",
 
-  formLabel:
-    "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
+  formLabel: "text-sm font-bold uppercase tracking-[0.16em] text-zinc-500",
 
-  formTitle:
-    "mt-2 text-2xl font-black sm:text-3xl",
+  formTitle: "mt-2 text-2xl font-black sm:text-3xl",
 
   errorBox:
     "mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-bold text-red-700",
@@ -440,50 +402,39 @@ export const verifyOtpPageStyles = {
   successBox:
     "mt-5 rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-bold text-teal-800",
 
-  inputLabelEmail:
-    "mt-6 block",
+  inputLabelEmail: "mt-6 block",
 
-  inputLabelOtp:
-    "mt-4 block",
+  inputLabelOtp: "mt-4 block",
 
-  inputLabelText:
-    "mb-2 block text-sm font-black text-zinc-700",
+  inputLabelText: "mb-2 block text-sm font-black text-zinc-700",
 
   inputWrapper:
     "flex h-12 items-center gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 px-3 transition focus-within:border-zinc-950 focus-within:bg-white focus-within:ring-4 focus-within:ring-zinc-200 sm:h-13 sm:px-4",
 
-  inputIcon:
-    "h-5 w-5 text-zinc-400",
+  inputIcon: "h-5 w-5 text-zinc-400",
 
   inputField:
     "h-full min-w-0 flex-1 bg-transparent text-sm font-bold outline-none placeholder:text-zinc-400",
 
-  resendContainer:
-    "mt-2 text-right",
+  resendContainer: "mt-2 text-right",
 
   resendButton:
     "inline-flex items-center gap-1.5 text-xs font-black text-zinc-700 hover:text-zinc-950 underline transition disabled:no-underline disabled:text-zinc-400",
 
-  resendSpinner:
-    "animate-spin h-3.5 w-3.5 text-current inline-block",
+  resendSpinner: "animate-spin h-3.5 w-3.5 text-current inline-block",
 
   submitButton:
     "mt-6 flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-5 text-sm font-black text-white shadow-lg shadow-zinc-200 transition hover:-translate-y-0.5 hover:bg-zinc-800 disabled:opacity-50 sm:h-13",
 
-  submitSpinner:
-    "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
+  submitSpinner: "animate-spin -ml-1 mr-2 h-4 w-4 text-current inline-block",
 
-  spinnerCircle:
-    "opacity-25",
+  spinnerCircle: "opacity-25",
 
-  spinnerPath:
-    "opacity-75",
+  spinnerPath: "opacity-75",
 
-  footer:
-    "mt-6 text-center text-xs font-bold text-zinc-500",
+  footer: "mt-6 text-center text-xs font-bold text-zinc-500",
 
-  footerLink:
-    "text-zinc-950 underline transition hover:text-zinc-800",
+  footerLink: "text-zinc-950 underline transition hover:text-zinc-800",
 };
 
 export const homePageStyles = {
