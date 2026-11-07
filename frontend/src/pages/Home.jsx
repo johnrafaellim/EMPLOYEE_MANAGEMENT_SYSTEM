@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { clearEmployeeLogin, getEmployeeUser } from "../auth/employeeAuth.js";
 import { useEffect, useState } from "react";
 import { homePageStyles as s } from "../assets/dummyStyles.jsx";
+import { Toast } from "./Dashboard.jsx";
 
 const pageTitles = {
   "/": "Dashboard",
@@ -124,6 +125,7 @@ const Home = () => {
 
   return (
     <div>
+      <Toast text={toast} />
       <Navbar onLogout={logout} />
       <main className={s.main}>
         <div className={s.container}>
