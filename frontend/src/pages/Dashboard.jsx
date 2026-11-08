@@ -8,6 +8,7 @@ import {
   XCircle,
   Send,
   Bell,
+  X,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { getEmployeeUser } from '../auth/employeeAuth.js';
