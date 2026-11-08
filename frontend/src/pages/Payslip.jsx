@@ -1,32 +1,32 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect } from 'react';
 import {
   CalendarDays,
   Download,
   Filter,
   ReceiptText,
   Search,
-} from "lucide-react";
-import { money } from "../data/employeePanelData.js";
+} from 'lucide-react';
+import { money } from '../data/employeePanelData.js';
 import {
   buildEmployeePayslipHtml,
   getPayslipDate,
   getSalaryPeriod,
-} from "../utils/buildEmployeePayslipHtml.js";
-import { getEmployeeUser } from "../auth/employeeAuth.js";
-import "./Payslip.css";
-import { useOutletContext } from "react-router-dom";
+} from '../utils/buildEmployeePayslipHtml.js';
+import { getEmployeeUser } from '../auth/employeeAuth.js';
+import './Payslip.css';
+import { useOutletContext } from 'react-router-dom';
 
 const getFileName = (record) =>
-  `payslip-${record.name.toLowerCase().replace(/\s+/g, "-")}-${(
+  `payslip-${record.name.toLowerCase().replace(/\s+/g, '-')}-${(
     record.salaryPeriod ||
     record.payDate ||
     record.id
-  ).replace(/\s+/g, "-")}.html`;
+  ).replace(/\s+/g, '-')}.html`;
 
 const PaySlip = () => {
   const { notify } = useOutletContext();
 
-  const [filters, setFilters] = useState({ month: "", payslipDate: "" });
+  const [filters, setFilters] = useState({ month: '', payslipDate: '' });
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -41,7 +41,7 @@ const PaySlip = () => {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
-          },
+          }
         );
         const data = await response.json();
         if (response.ok && data.success) {
@@ -52,7 +52,7 @@ const PaySlip = () => {
           setRecords(mapped);
         }
       } catch (err) {
-        console.error("Error fetching payslips:", err);
+        console.error('Error fetching payslips:', err);
       } finally {
         setLoading(false);
       }
@@ -63,8 +63,8 @@ const PaySlip = () => {
   const employeeRecords = useMemo(() => {
     return [...records].sort((a, b) =>
       String(b.payDate || b.salaryPeriod).localeCompare(
-        String(a.payDate || a.salaryPeriod),
-      ),
+        String(a.payDate || a.salaryPeriod)
+      )
     );
   }, [records]);
 
@@ -73,24 +73,24 @@ const PaySlip = () => {
       employeeRecords.filter(
         (record) =>
           (!filters.month || record.salaryPeriod === filters.month) &&
-          (!filters.payslipDate || record.payDate === filters.payslipDate),
+          (!filters.payslipDate || record.payDate === filters.payslipDate)
       ),
-    [employeeRecords, filters],
+    [employeeRecords, filters]
   );
 
   const downloadSlip = (record) => {
     const blob = new Blob([buildEmployeePayslipHtml(record)], {
-      type: "text/html;charset=utf-8",
+      type: 'text/html;charset=utf-8',
     });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const link = document.createElement('a');
     link.href = url;
     link.download = getFileName(record);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    if (notify) notify("Payslip downloaded");
+    if (notify) notify('Payslip downloaded');
   };
 
   return (
@@ -137,7 +137,7 @@ const PaySlip = () => {
           <div className="payslip-clear-row">
             <button
               type="button"
-              onClick={() => setFilters({ month: "", payslipDate: "" })}
+              onClick={() => setFilters({ month: '', payslipDate: '' })}
               className="payslip-clear-button"
             >
               Clear filters
@@ -190,7 +190,7 @@ const PaySlip = () => {
                     <td className="payslip-strong-cell">{money(netSalary)}</td>
                     <td>
                       <span className="payslip-status">
-                        {record.status || "Paid"}
+                        {record.status || 'Paid'}
                       </span>
                     </td>
                     <td>

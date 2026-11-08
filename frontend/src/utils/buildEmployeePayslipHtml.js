@@ -1,30 +1,30 @@
-import { employeeDetails } from "../data/paySlipDummyData.js";
+import { employeeDetails } from '../data/paySlipDummyData.js';
 
-const pad2 = (n) => String(n).padStart(2, "0");
+const pad2 = (n) => String(n).padStart(2, '0');
 
 const formatDateTime = () => {
   const d = new Date();
   return `${pad2(d.getDate())}-${pad2(d.getMonth() + 1)}-${d.getFullYear()} ${pad2(
-    d.getHours(),
+    d.getHours()
   )}:${pad2(d.getMinutes())}`;
 };
 
 const formatCurrency = (value) =>
-  new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
     maximumFractionDigits: 0,
   }).format(Number(value || 0));
 
 const escapeHtml = (value) =>
-  String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+  String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
-const hasText = (value) => String(value ?? "").trim().length > 0;
+const hasText = (value) => String(value ?? '').trim().length > 0;
 
 const hasAmount = (record, key) => {
   const flagKey = `show${key[0].toUpperCase()}${key.slice(1)}`;
@@ -36,19 +36,19 @@ const hasAmount = (record, key) => {
 };
 
 const monthValueToLabel = (value) => {
-  if (!value) return "";
-  const [year, month] = value.split("-");
+  if (!value) return '';
+  const [year, month] = value.split('-');
   const date = new Date(Number(year), Number(month) - 1, 1);
   if (Number.isNaN(date.getTime())) return value;
-  return date.toLocaleDateString("en-IN", {
-    month: "long",
-    year: "numeric",
+  return date.toLocaleDateString('en-IN', {
+    month: 'long',
+    year: 'numeric',
   });
 };
 
 export const dateValueToLabel = (value) => {
-  if (!value) return "";
-  const [year, month, day] = value.split("-");
+  if (!value) return '';
+  const [year, month, day] = value.split('-');
   if (year && month && day) return `${day}-${month}-${year}`;
   return value;
 };
@@ -56,20 +56,20 @@ export const dateValueToLabel = (value) => {
 export const getSalaryPeriod = (record) => {
   if (hasText(record.salaryPeriodLabel)) return record.salaryPeriodLabel;
   if (
-    record.employeeId?.salaryPeriod === "year" ||
-    String(record.month).startsWith("Year")
+    record.employeeId?.salaryPeriod === 'year' ||
+    String(record.month).startsWith('Year')
   ) {
-    return String(record.month).startsWith("Year")
+    return String(record.month).startsWith('Year')
       ? record.month
-      : `Year ${(record.salaryPeriod || "").substring(0, 4)}`;
+      : `Year ${(record.salaryPeriod || '').substring(0, 4)}`;
   }
-  if (/^\d{4}-\d{2}$/.test(record.salaryPeriod || "")) {
+  if (/^\d{4}-\d{2}$/.test(record.salaryPeriod || '')) {
     return monthValueToLabel(record.salaryPeriod);
   }
   if (hasText(record.month)) return record.month;
   if (hasText(record.payDate))
     return monthValueToLabel(record.payDate.slice(0, 7));
-  return "";
+  return '';
 };
 
 export const getPayslipDate = (record) =>
@@ -77,27 +77,27 @@ export const getPayslipDate = (record) =>
 
 const getSlipType = (record) => {
   const extras = [
-    hasAmount(record, "bonus") ? "Bonus" : "",
-    hasAmount(record, "overtime") ? "Overtime" : "",
-    hasAmount(record, "deduction") ? "Deduction" : "",
+    hasAmount(record, 'bonus') ? 'Bonus' : '',
+    hasAmount(record, 'overtime') ? 'Overtime' : '',
+    hasAmount(record, 'deduction') ? 'Deduction' : '',
   ].filter(Boolean);
 
-  return extras.length ? `Salary with ${extras.join(", ")}` : "Regular Salary";
+  return extras.length ? `Salary with ${extras.join(', ')}` : 'Regular Salary';
 };
 
 const salaryRows = (record) =>
   [
-    ["Base Salary", record.baseSalary, true],
-    ["Bonus", record.bonus, hasAmount(record, "bonus")],
-    ["Overtime", record.overtime, hasAmount(record, "overtime")],
-    ["Deduction", record.deduction, hasAmount(record, "deduction"), true],
+    ['Base Salary', record.baseSalary, true],
+    ['Bonus', record.bonus, hasAmount(record, 'bonus')],
+    ['Overtime', record.overtime, hasAmount(record, 'overtime')],
+    ['Deduction', record.deduction, hasAmount(record, 'deduction'), true],
   ].filter(([, , show]) => show);
 
 const detailLine = (label, value) =>
-  hasText(value) ? `${label}: ${escapeHtml(value)}<br/>` : "";
+  hasText(value) ? `${label}: ${escapeHtml(value)}<br/>` : '';
 
 const salaryTableRow = ([label, value, , negative]) =>
-  `<tr><th>${label}</th><td>${negative ? "- " : ""}${formatCurrency(value)}</td></tr>`;
+  `<tr><th>${label}</th><td>${negative ? '- ' : ''}${formatCurrency(value)}</td></tr>`;
 
 const downloadStyles = `
   * { box-sizing: border-box; }
@@ -127,9 +127,9 @@ export const buildEmployeePayslipHtml = (record) => {
   const netSalary =
     record.netSalary ??
     Number(record.baseSalary || 0) +
-      (hasAmount(record, "bonus") ? Number(record.bonus || 0) : 0) +
-      (hasAmount(record, "overtime") ? Number(record.overtime || 0) : 0) -
-      (hasAmount(record, "deduction") ? Number(record.deduction || 0) : 0);
+      (hasAmount(record, 'bonus') ? Number(record.bonus || 0) : 0) +
+      (hasAmount(record, 'overtime') ? Number(record.overtime || 0) : 0) -
+      (hasAmount(record, 'deduction') ? Number(record.deduction || 0) : 0);
 
   return `<!doctype html>
 <html>
@@ -157,29 +157,29 @@ export const buildEmployeePayslipHtml = (record) => {
           <div class="label">Employee Record</div>
           <div class="value">${escapeHtml(record.name)}</div>
           <div style="margin-top:10px;color:#71717a;font-size:14px;line-height:1.7;">
-            ${detailLine("Employee ID", record.empId)}
-            ${detailLine("Designation", record.role)}
-            ${detailLine("Department", record.department)}
-            ${detailLine("Email", employeeDetails.email)}
-            ${detailLine("Phone", employeeDetails.phone)}
+            ${detailLine('Employee ID', record.empId)}
+            ${detailLine('Designation', record.role)}
+            ${detailLine('Department', record.department)}
+            ${detailLine('Email', employeeDetails.email)}
+            ${detailLine('Phone', employeeDetails.phone)}
           </div>
         </div>
         <div class="card">
           <div class="label">Payslip Info</div>
           <div class="value">${escapeHtml(payslipDate)}</div>
           <div style="margin-top:10px;color:#71717a;font-size:14px;line-height:1.7;">
-            ${detailLine("Salary Period", salaryPeriod)}
-            ${detailLine("Slip Type", getSlipType(record))}
-            ${detailLine("Bank", employeeDetails.bankName)}
-            ${detailLine("A/C No", employeeDetails.accountNo)}
-            ${detailLine("IFSC", employeeDetails.ifsc)}
+            ${detailLine('Salary Period', salaryPeriod)}
+            ${detailLine('Slip Type', getSlipType(record))}
+            ${detailLine('Bank', employeeDetails.bankName)}
+            ${detailLine('A/C No', employeeDetails.accountNo)}
+            ${detailLine('IFSC', employeeDetails.ifsc)}
             Status: Paid<br/>
           </div>
         </div>
       </div>
 
       <table>
-        ${salaryRows(record).map(salaryTableRow).join("")}
+        ${salaryRows(record).map(salaryTableRow).join('')}
         <tr><th>Net Salary</th><td><strong>${formatCurrency(netSalary)}</strong></td></tr>
       </table>
 

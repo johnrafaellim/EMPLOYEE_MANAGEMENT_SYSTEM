@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import { loginPageStyles as s } from "../assets/dummyStyles.jsx";
+import { loginPageStyles as s } from '../assets/dummyStyles.jsx';
 import {
   BriefcaseBusiness,
   ShieldCheck,
@@ -10,13 +10,13 @@ import {
   EyeOff,
   Eye,
   ArrowRight,
-} from "lucide-react";
-import { saveEmployeeLogin } from "../auth/employeeAuth.js";
+} from 'lucide-react';
+import { saveEmployeeLogin } from '../auth/employeeAuth.js';
 
 const Login = () => {
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -29,44 +29,44 @@ const Login = () => {
     const cleanPassword = form.password.trim();
 
     if (!cleanEmail || !cleanPassword) {
-      setError("Please enter work email and work password");
+      setError('Please enter work email and work password');
       return;
     }
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email: cleanEmail, password: cleanPassword }),
-        },
+        }
       );
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message || "Invalid credentials");
+        setError(data.message || 'Invalid credentials');
         setLoading(false);
         return;
       }
 
       saveEmployeeLogin({
         email: cleanEmail,
-        name: data.name || cleanEmail.split("@")[0],
+        name: data.name || cleanEmail.split('@')[0],
         role: data.role,
         token: data.token,
-        employeeId: data.employeeId || "",
+        employeeId: data.employeeId || '',
       });
-      navigate(location.state?.from?.pathname || "/", { replace: true });
+      navigate(location.state?.from?.pathname || '/', { replace: true });
     } catch (e) {
-      console.error("Login error:", e);
+      console.error('Login error:', e);
       setError(
-        "Unable to connect to the server. Please check your connection.",
+        'Unable to connect to the server. Please check your connection.'
       );
       setLoading(false);
     }
@@ -108,7 +108,7 @@ const Login = () => {
                 value={form.email}
                 onChange={(event) => {
                   setForm({ ...form, email: event.target.value });
-                  setError("");
+                  setError('');
                 }}
                 placeholder="name@company.com"
                 className={s.inputField}
@@ -121,11 +121,11 @@ const Login = () => {
             <span className={s.inputWrapper}>
               <LockKeyhole className={s.inputIcon} />
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 value={form.password}
                 onChange={(event) => {
                   setForm({ ...form, password: event.target.value });
-                  setError("");
+                  setError('');
                 }}
                 placeholder="Enter work password"
                 className={s.inputField}

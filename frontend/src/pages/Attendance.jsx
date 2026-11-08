@@ -1,15 +1,15 @@
-import { useOutletContext } from "react-router-dom";
-import { useMemo, useState } from "react";
-import { CalendarDays, Send, X } from "lucide-react";
+import { useOutletContext } from 'react-router-dom';
+import { useMemo, useState } from 'react';
+import { CalendarDays, Send, X } from 'lucide-react';
 import {
   dates,
   displayDate,
   employee,
   today,
-} from "../data/employeePanelData.js";
-import Status from "../components/Status.jsx";
-import { getEmployeeUser } from "../auth/employeeAuth.js";
-import { attendancePageStyles as s } from "../assets/dummyStyles";
+} from '../data/employeePanelData.js';
+import Status from '../components/Status.jsx';
+import { getEmployeeUser } from '../auth/employeeAuth.js';
+import { attendancePageStyles as s } from '../assets/dummyStyles';
 
 function AttendanceTable({ rows }) {
   return (
@@ -25,7 +25,7 @@ function AttendanceTable({ rows }) {
             <div className={s.attendanceTableEmployee}>
               <b className={s.attendanceTableName}>{record.name}</b>
               <span className={s.attendanceTableEmpId}>
-                {record.empId || "-"}
+                {record.empId || '-'}
               </span>
             </div>
             <span>{displayDate(record.from)}</span>
@@ -45,55 +45,55 @@ const Attendance = () => {
     useOutletContext();
 
   const [open, setOpen] = useState(false);
-  const [filter, setFilter] = useState("");
-  const [form, setForm] = useState({ from: today(), to: today(), reason: "" });
+  const [filter, setFilter] = useState('');
+  const [form, setForm] = useState({ from: today(), to: today(), reason: '' });
   const [marking, setMarking] = useState(false);
   const [applying, setApplying] = useState(false);
 
   const rows = useMemo(() => {
     const leaveDates = records
-      .filter((record) => record.type == "Leave" && record.status == "Approved")
+      .filter((record) => record.type == 'Leave' && record.status == 'Approved')
       .flatMap((record) =>
-        dates(record.from, record.to).map((day) => ({ day, record })),
+        dates(record.from, record.to).map((day) => ({ day, record }))
       );
 
     const absentRows = [];
     if (joiningDate) {
-      const startStr = joiningDate.split("T")[0];
+      const startStr = joiningDate.split('T')[0];
       const yesterdayDate = new Date();
       yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-      const yesterdayStr = yesterdayDate.toLocaleDateString("en-CA");
+      const yesterdayStr = yesterdayDate.toLocaleDateString('en-CA');
 
       if (startStr <= yesterdayStr) {
         const days = dates(startStr, yesterdayStr);
         const employeeName =
-          records[0]?.name || getEmployeeUser()?.name || "Employee";
+          records[0]?.name || getEmployeeUser()?.name || 'Employee';
         const employeeEmpId =
           records.find((r) => r.empId)?.empId ||
           getEmployeeUser()?.employeeId ||
-          "";
+          '';
         for (const day of days) {
           const isPresent = records.some(
-            (r) => r.type === "Present" && r.from === day,
+            (r) => r.type === 'Present' && r.from === day
           );
           const isOnLeave = records.some(
             (r) =>
-              r.type === "Leave" &&
-              r.status === "Approved" &&
+              r.type === 'Leave' &&
+              r.status === 'Approved' &&
               day >= r.from &&
-              day <= r.to,
+              day <= r.to
           );
 
           if (!isPresent && !isOnLeave) {
             absentRows.push({
               id: `absent-${day}`,
-              type: "Absent",
+              type: 'Absent',
               name: employeeName,
               empId: employeeEmpId,
               from: day,
               to: day,
-              reason: "-",
-              status: "Absent",
+              reason: '-',
+              status: 'Absent',
             });
           }
         }
@@ -101,13 +101,13 @@ const Attendance = () => {
     }
 
     const allRows = [
-      ...records.filter((record) => record.type == "Present"),
+      ...records.filter((record) => record.type == 'Present'),
       ...absentRows,
     ];
 
     return allRows
       .filter(
-        (record) => !filter || dates(record.from, record.to).includes(filter),
+        (record) => !filter || dates(record.from, record.to).includes(filter)
       )
       .sort((a, b) => b.from.localeCompare(a.from));
   }, [records, filter, joiningDate]);
@@ -115,28 +115,28 @@ const Attendance = () => {
   const leaveTaken = (date) =>
     records.some(
       (record) =>
-        record.type == "Leave" &&
-        record.status != "Rejected" &&
-        dates(record.from, record.to).includes(date),
+        record.type == 'Leave' &&
+        record.status != 'Rejected' &&
+        dates(record.from, record.to).includes(date)
     );
   const presentDone = records.some(
-    (record) => record.type == "Present" && record.from == today(),
+    (record) => record.type == 'Present' && record.from == today()
   );
   const leaveDone = records.some(
-    (record) => record.type == "Leave" && record.status == "Leave Applied",
+    (record) => record.type == 'Leave' && record.status == 'Leave Applied'
   );
 
   const mark = async () => {
     if (presentDone) {
-      return notify("Today already submitted");
+      return notify('Today already submitted');
     }
     if (leaveTaken(today())) {
-      return notify("Cannot mark present on a day you have applied for leave");
+      return notify('Cannot mark present on a day you have applied for leave');
     }
 
     const user = getEmployeeUser();
     if (!user || !user.token) {
-      return notify("Unauthorized. Please log in.");
+      return notify('Unauthorized. Please log in.');
     }
 
     setMarking(true);
@@ -144,25 +144,25 @@ const Attendance = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/attendance/mark`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       const data = await response.json();
       if (!response.ok) {
         setMarking(false);
-        return notify(data.message || "Failed to mark attendance");
+        return notify(data.message || 'Failed to mark attendance');
       }
 
-      notify("Present marked successfully");
+      notify('Present marked successfully');
       if (fetchRecords) await fetchRecords();
     } catch (err) {
       console.error(err);
-      notify("Failed to connect to server");
+      notify('Failed to connect to server');
     } finally {
       setMarking(false);
     }
@@ -172,21 +172,21 @@ const Attendance = () => {
     event.preventDefault();
     const selectedDates = dates(form.from, form.to);
 
-    if (!form.reason.trim()) return notify("Please add reason");
+    if (!form.reason.trim()) return notify('Please add reason');
     if (presentDone && selectedDates.includes(today())) {
-      return notify("Cannot apply for leave on a day you are marked present");
+      return notify('Cannot apply for leave on a day you are marked present');
     }
     if (
       form.from < today() ||
       form.to < form.from ||
       selectedDates.some(leaveTaken)
     ) {
-      return notify("Selected dates are not available");
+      return notify('Selected dates are not available');
     }
 
     const user = getEmployeeUser();
     if (!user || !user.token) {
-      return notify("Unauthorized. Please log in.");
+      return notify('Unauthorized. Please log in.');
     }
 
     setApplying(true);
@@ -194,9 +194,9 @@ const Attendance = () => {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/leave/apply`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify({
@@ -204,22 +204,22 @@ const Attendance = () => {
             toDate: form.to,
             reason: form.reason.trim(),
           }),
-        },
+        }
       );
 
       const data = await response.json();
       if (!response.ok) {
         setApplying(false);
-        return notify(data.message || "Failed to apply for leave");
+        return notify(data.message || 'Failed to apply for leave');
       }
 
       setOpen(false);
-      setForm({ from: today(), to: today(), reason: "" });
-      notify("Leave applied successfully");
+      setForm({ from: today(), to: today(), reason: '' });
+      notify('Leave applied successfully');
       if (fetchRecords) await fetchRecords();
     } catch (err) {
       console.error(err);
-      notify("Failed to connect to server");
+      notify('Failed to connect to server');
     } finally {
       setApplying(false);
     }
@@ -262,7 +262,7 @@ const Attendance = () => {
                   />
                 </svg>
               )}
-              {marking ? "Marking..." : "Present"}
+              {marking ? 'Marking...' : 'Present'}
             </button>
             <button
               disabled={leaveDone}
@@ -288,7 +288,7 @@ const Attendance = () => {
           {filter && (
             <button
               type="button"
-              onClick={() => setFilter("")}
+              onClick={() => setFilter('')}
               className={s.filterClear}
             >
               Clear

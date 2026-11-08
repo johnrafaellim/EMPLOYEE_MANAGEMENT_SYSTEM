@@ -1,5 +1,5 @@
-import { useOutletContext } from "react-router-dom";
-import { dashboardPageStyles as s } from "../assets/dummyStyles.jsx";
+import { useOutletContext } from 'react-router-dom';
+import { dashboardPageStyles as s } from '../assets/dummyStyles.jsx';
 import {
   Sparkles,
   CalendarCheck,
@@ -8,10 +8,10 @@ import {
   XCircle,
   Send,
   Bell,
-} from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { getEmployeeUser } from "../auth/employeeAuth.js";
-import { dates, today } from "../data/employeePanelData.js";
+} from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { getEmployeeUser } from '../auth/employeeAuth.js';
+import { dates, today } from '../data/employeePanelData.js';
 
 const Stat = ({ icon: Icon, title, value, note }) => (
   <div className={s.statCard}>
@@ -38,10 +38,10 @@ export const Toast = ({ text }) =>
   );
 
 const getAnnouncementDisplayDate = (createdAt) => {
-  if (!createdAt) return "";
+  if (!createdAt) return '';
   const date = new Date(createdAt);
   if (Number.isNaN(date.getTime())) return createdAt;
-  const pad2 = (val) => String(val).padStart(2, "0");
+  const pad2 = (val) => String(val).padStart(2, '0');
   return `${pad2(date.getDate())}-${pad2(date.getMonth() + 1)}-${date.getFullYear()} ${pad2(date.getHours())}:${pad2(date.getMinutes())}`;
 };
 
@@ -52,10 +52,10 @@ const getAnnouncementDisplayDate = (createdAt) => {
  * @returns {string}
  */
 const getFormattedDisplayDateOnly = (dateValue) => {
-  if (!dateValue) return "";
+  if (!dateValue) return '';
   const date = new Date(dateValue);
-  if (Number.isNaN(date.getTime())) return "";
-  const pad2 = (value) => String(value).padStart(2, "0");
+  if (Number.isNaN(date.getTime())) return '';
+  const pad2 = (value) => String(value).padStart(2, '0');
   return `${pad2(date.getDate())}-${pad2(date.getMonth() + 1)}-${date.getFullYear()}`;
 };
 
@@ -64,10 +64,10 @@ const Dashboard = () => {
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
   const { records, joiningDate } = useOutletContext();
 
-  const leave = records.filter((record) => record.type === "Leave");
-  const present = records.filter((record) => record.type === "Present").length;
+  const leave = records.filter((record) => record.type === 'Leave');
+  const present = records.filter((record) => record.type === 'Present').length;
   const approvedDays = leave
-    .filter((record) => record.status === "Approved")
+    .filter((record) => record.status === 'Approved')
     .flatMap((record) => dates(record.from, record.to)).length;
   // const approvedDays = leave
   //   .filter(({ status }) => status === "Approved")
@@ -78,12 +78,12 @@ const Dashboard = () => {
   // to calculate the number of days of absent
   const absentDaysCount = (() => {
     if (!joiningDate) return 0;
-    const startStr = joiningDate.split("T")[0];
+    const startStr = joiningDate.split('T')[0];
     const todayStr = today();
 
     const yesterdayDate = new Date();
     yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-    const yesterdayStr = yesterdayDate.toLocaleDateString("en-CA");
+    const yesterdayStr = yesterdayDate.toLocaleDateString('en-CA');
 
     if (startStr > yesterdayStr) return 0;
 
@@ -91,14 +91,14 @@ const Dashboard = () => {
     let absentCount = 0;
     for (const day of days) {
       const isPresent = records.some(
-        (r) => r.type === "Present" && r.from === day,
+        (r) => r.type === 'Present' && r.from === day
       );
       const isOnLeave = records.some(
         (r) =>
-          r.type === "Leave" &&
-          r.status === "Approved" &&
+          r.type === 'Leave' &&
+          r.status === 'Approved' &&
           day >= r.from &&
-          day <= r.to,
+          day <= r.to
       );
       if (!isPresent && !isOnLeave) {
         absentCount++;
@@ -110,8 +110,8 @@ const Dashboard = () => {
   const activeAnnouncements = useMemo(() => {
     const todayObj = new Date();
     const year = todayObj.getFullYear();
-    const month = String(todayObj.getMonth() + 1).padStart(2, "0");
-    const day = String(todayObj.getDate()).padStart(2, "0");
+    const month = String(todayObj.getMonth() + 1).padStart(2, '0');
+    const day = String(todayObj.getDate()).padStart(2, '0');
     const todayStr = `${year}-${month}-${day}`;
 
     return announcements.filter((item) => {
@@ -121,8 +121,8 @@ const Dashboard = () => {
       if (Number.isNaN(endObj.getTime())) return true;
 
       const endYear = endObj.getFullYear();
-      const endMonth = String(endObj.getMonth() + 1).padStart(2, "0");
-      const endDay = String(endObj.getDate()).padStart(2, "0");
+      const endMonth = String(endObj.getMonth() + 1).padStart(2, '0');
+      const endDay = String(endObj.getDate()).padStart(2, '0');
       const endDateStr = `${endYear}-${endMonth}-${endDay}`;
 
       return endDateStr >= todayStr;
@@ -140,14 +140,14 @@ const Dashboard = () => {
             headers: {
               Authorization: `Bearer ${user.token}`,
             },
-          },
+          }
         );
         const data = await response.json();
         if (response.ok && data.success) {
           setAnnouncements(data.announcements);
         }
       } catch (err) {
-        console.error("Error fetching announcements:", err);
+        console.error('Error fetching announcements:', err);
       }
     };
 
@@ -160,11 +160,11 @@ const Dashboard = () => {
     const handleFocus = () => {
       fetchAnnouncements();
     };
-    window.addEventListener("focus", handleFocus);
+    window.addEventListener('focus', handleFocus);
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 
@@ -186,13 +186,13 @@ const Dashboard = () => {
         <Stat
           icon={CheckCircle2}
           title="Leave Approved"
-          value={leave.filter((record) => record.status === "Approved").length}
+          value={leave.filter((record) => record.status === 'Approved').length}
           note={`${approvedDays} days`}
         />
         <Stat
           icon={XCircle}
           title="Leave Rejected"
-          value={leave.filter((record) => record.status === "Rejected").length}
+          value={leave.filter((record) => record.status === 'Rejected').length}
           note="requests"
         />
         <Stat
@@ -224,7 +224,7 @@ const Dashboard = () => {
         ) : (
           <div className={s.announcementsGrid}>
             {activeAnnouncements.map((item) => {
-              const isPersonal = item.sendTo === "Employee";
+              const isPersonal = item.sendTo === 'Employee';
               return (
                 <article
                   key={item._id}
@@ -245,7 +245,7 @@ const Dashboard = () => {
                               : s.announcementBadgeBroadcast
                           }`}
                         >
-                          {isPersonal ? "Direct" : "Broadcast"}
+                          {isPersonal ? 'Direct' : 'Broadcast'}
                         </span>
                       </div>
                       <p className={s.announcementCardMessage}>
@@ -257,13 +257,13 @@ const Dashboard = () => {
                           <span className={s.announcementCardDateChip}>
                             {item.fromDate
                               ? getFormattedDisplayDateOnly(item.fromDate)
-                              : "—"}
+                              : '—'}
                           </span>
                           <span>to</span>
                           <span className={s.announcementCardDateChip}>
                             {item.toDate
                               ? getFormattedDisplayDateOnly(item.toDate)
-                              : "—"}
+                              : '—'}
                           </span>
                         </div>
                       )}
@@ -297,14 +297,14 @@ const Dashboard = () => {
               <div>
                 <span
                   className={`${s.modalBadgeBase} ${
-                    selectedAnnouncement.sendTo === "Employee"
+                    selectedAnnouncement.sendTo === 'Employee'
                       ? s.modalBadgeDirect
                       : s.modalBadgeBroadcast
                   }`}
                 >
-                  {selectedAnnouncement.sendTo === "Employee"
-                    ? "Direct Message"
-                    : "Broadcast"}
+                  {selectedAnnouncement.sendTo === 'Employee'
+                    ? 'Direct Message'
+                    : 'Broadcast'}
                 </span>
                 <p className={s.modalDate}>
                   {getAnnouncementDisplayDate(selectedAnnouncement.createdAt)}
@@ -321,15 +321,15 @@ const Dashboard = () => {
                   <span className={s.modalPeriodChip}>
                     {selectedAnnouncement.fromDate
                       ? getFormattedDisplayDateOnly(
-                          selectedAnnouncement.fromDate,
+                          selectedAnnouncement.fromDate
                         )
-                      : "—"}
+                      : '—'}
                   </span>
                   <span>to</span>
                   <span className={s.modalPeriodChip}>
                     {selectedAnnouncement.toDate
                       ? getFormattedDisplayDateOnly(selectedAnnouncement.toDate)
-                      : "—"}
+                      : '—'}
                   </span>
                 </div>
               )}

@@ -1,32 +1,32 @@
-import Navbar from "../components/Navbar.jsx";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { clearEmployeeLogin, getEmployeeUser } from "../auth/employeeAuth.js";
-import { useEffect, useState } from "react";
-import { homePageStyles as s } from "../assets/dummyStyles.jsx";
-import { Toast } from "./Dashboard.jsx";
+import Navbar from '../components/Navbar.jsx';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { clearEmployeeLogin, getEmployeeUser } from '../auth/employeeAuth.js';
+import { useEffect, useState } from 'react';
+import { homePageStyles as s } from '../assets/dummyStyles.jsx';
+import { Toast } from './Dashboard.jsx';
 
 const pageTitles = {
-  "/": "Dashboard",
-  "/attendance": "Attendance",
-  "/payslip": "Payslip",
-  "/leave": "Leave",
+  '/': 'Dashboard',
+  '/attendance': 'Attendance',
+  '/payslip': 'Payslip',
+  '/leave': 'Leave',
 };
 
 const Home = () => {
   const [records, setRecords] = useState([]);
   const [joiningDate, setJoiningDate] = useState(null);
-  const [toast, setToast] = useState("");
+  const [toast, setToast] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
   const notify = (msg) => {
     setToast(msg);
-    setTimeout(() => setToast(""), 2200);
+    setTimeout(() => setToast(''), 2200);
   };
 
   const logout = () => {
     clearEmployeeLogin();
-    navigate("/login", { replace: true });
+    navigate('/login', { replace: true });
   };
 
   // to fetch the records coming from the server side
@@ -39,22 +39,22 @@ const Home = () => {
       const attRes = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/attendance/`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
       const attData = await attRes.json();
 
       const leaveRes = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/leave`,
         {
-          method: "GET",
+          method: 'GET',
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
-        },
+        }
       );
 
       const leaveData = await leaveRes.json();
@@ -74,34 +74,34 @@ const Home = () => {
 
       const mappedAttendance = attendanceList.map((att) => ({
         id: att._id,
-        type: "Present",
-        name: att.employee?.name || user.name || "Employee",
-        empId: att.employee?.employeeId || user.employeeId || "",
-        from: att.date.split("T")[0],
-        to: att.date.split("T")[0],
-        reason: "-",
-        status: att.status || "Present",
+        type: 'Present',
+        name: att.employee?.name || user.name || 'Employee',
+        empId: att.employee?.employeeId || user.employeeId || '',
+        from: att.date.split('T')[0],
+        to: att.date.split('T')[0],
+        reason: '-',
+        status: att.status || 'Present',
       }));
 
       const mappedLeaves = leaveList.map((leave) => ({
         id: leave._id,
-        type: "Leave",
-        name: leave.employee?.name || user.name || "Employee",
-        empId: leave.employee?.employeeId || user.employeeId || "",
-        from: leave.fromDate.split("T")[0],
-        to: leave.toDate.split("T")[0],
+        type: 'Leave',
+        name: leave.employee?.name || user.name || 'Employee',
+        empId: leave.employee?.employeeId || user.employeeId || '',
+        from: leave.fromDate.split('T')[0],
+        to: leave.toDate.split('T')[0],
         reason: leave.reason,
         status:
-          leave.status === "Pending"
-            ? "Leave Applied"
-            : leave.status === "Approved"
-              ? "Approved"
-              : "Rejected",
+          leave.status === 'Pending'
+            ? 'Leave Applied'
+            : leave.status === 'Approved'
+              ? 'Approved'
+              : 'Rejected',
       }));
 
       setRecords([...mappedAttendance, ...mappedLeaves]);
     } catch (e) {
-      console.error("Failed to fetch attendance or leave records: ", e);
+      console.error('Failed to fetch attendance or leave records: ', e);
     }
   };
 
@@ -115,11 +115,11 @@ const Home = () => {
     const handleFocus = () => {
       fetchRecords();
     };
-    window.addEventListener("focus", handleFocus);
+    window.addEventListener('focus', handleFocus);
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener('focus', handleFocus);
     };
   }, []);
 
@@ -130,7 +130,7 @@ const Home = () => {
       <main className={s.main}>
         <div className={s.container}>
           <h1 className={s.heading}>
-            {pageTitles[location.pathname] || "Dashboard"}
+            {pageTitles[location.pathname] || 'Dashboard'}
           </h1>
           <Outlet
             context={{

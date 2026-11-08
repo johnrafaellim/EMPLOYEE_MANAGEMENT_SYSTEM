@@ -1,4 +1,4 @@
-import { navbarStyles as s } from "../assets/dummyStyles.jsx";
+import { navbarStyles as s } from '../assets/dummyStyles.jsx';
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -8,15 +8,15 @@ import {
   LogOut,
   X,
   Menu,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const tabs = [
-  ["Dashboard", "/", LayoutDashboard],
-  ["Attendance", "/attendance", CalendarCheck],
-  ["Payslip", "/payslip", FileText],
-  ["Leave", "/leave", Send],
+  ['Dashboard', '/', LayoutDashboard],
+  ['Attendance', '/attendance', CalendarCheck],
+  ['Payslip', '/payslip', FileText],
+  ['Leave', '/leave', Send],
 ];
 
 const Navbar = ({ onLogout }) => {
@@ -33,17 +33,17 @@ const Navbar = ({ onLogout }) => {
       }
     };
     const closeOnEscape = (event) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === 'Escape') setMenuOpen(false);
     };
 
-    document.addEventListener("mousedown", closeOnOutsideClick);
-    document.addEventListener("touchstart", closeOnOutsideClick);
-    document.addEventListener("keydown", closeOnEscape);
+    document.addEventListener('mousedown', closeOnOutsideClick);
+    document.addEventListener('touchstart', closeOnOutsideClick);
+    document.addEventListener('keydown', closeOnEscape);
 
     return () => {
-      document.removeEventListener("mousedown", closeOnOutsideClick);
-      document.removeEventListener("touchstart", closeOnOutsideClick);
-      document.removeEventListener("keydown", closeOnEscape);
+      document.removeEventListener('mousedown', closeOnOutsideClick);
+      document.removeEventListener('touchstart', closeOnOutsideClick);
+      document.removeEventListener('keydown', closeOnEscape);
     };
   }, [menuOpen]);
 
@@ -70,11 +70,11 @@ const Navbar = ({ onLogout }) => {
         </Link>
 
         <nav className={s.desktopNav}>
-          {tabs.map(([label = "", href = "", Icon]) => (
+          {tabs.map(([label = '', href = '', Icon]) => (
             <NavLink
               key={label}
               to={href}
-              end={href === "/"}
+              end={href === '/'}
               className={({ isActive }) => s.getDesktopNavLinkClass(isActive)}
             >
               <Icon size={17} />
@@ -101,11 +101,11 @@ const Navbar = ({ onLogout }) => {
         <nav
           className={`${s.mobileNavBase} ${menuOpen ? s.mobileNavOpen : s.mobileNavClosed}`}
         >
-          {tabs.map(([label = "", href = "", Icon]) => (
+          {tabs.map(([label = '', href = '', Icon]) => (
             <NavLink
               key={label}
               to={href}
-              end={href === "/"}
+              end={href === '/'}
               onClick={() => setMenuOpen(false)}
               className={({ isActive }) => s.getMobileNavLinkClass(isActive)}
             >

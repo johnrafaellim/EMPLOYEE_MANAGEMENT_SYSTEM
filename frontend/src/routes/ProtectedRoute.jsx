@@ -1,5 +1,5 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { isEmployeeLoggedIn } from "../auth/employeeAuth.js";
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { isEmployeeLoggedIn } from '../auth/employeeAuth.js';
 
 const ProtectedRoute = () => {
   const location = useLocation();
