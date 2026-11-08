@@ -48,7 +48,7 @@ const Home = () => {
       const attData = await attRes.json();
 
       const leaveRes = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/leaves`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/leave`,
         {
           method: "GET",
           headers: {
