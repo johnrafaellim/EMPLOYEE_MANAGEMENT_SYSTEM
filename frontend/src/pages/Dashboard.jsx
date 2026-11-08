@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { getEmployeeUser } from "../auth/employeeAuth.js";
-import { dates, today } from "../utils/employeePanelData.js";
+import { dates, today } from "../data/employeePanelData.js";
 
 const Stat = ({ icon: Icon, title, value, note }) => (
   <div className={s.statCard}>
