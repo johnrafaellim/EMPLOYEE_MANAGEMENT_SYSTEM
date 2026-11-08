@@ -5,6 +5,6 @@ import { createPayroll, getPayroll } from '../controllers/payrollController.js';
 const payrollRouter = express.Router();
 
 payrollRouter.post('/', verifyToken, isAdmin, createPayroll);
-payrollRouter.get('/', verifyToken, isAdmin, getPayroll);
+payrollRouter.get('/', verifyToken, getPayroll);
 
 export default payrollRouter;
