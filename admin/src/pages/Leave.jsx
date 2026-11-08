@@ -12,6 +12,7 @@ import {
   Undo2,
   AlertCircle,
   X,
+  Check,
 } from 'lucide-react';
 import StatusPill from '../components/Employee/StatusPill.jsx';
 
@@ -35,7 +36,7 @@ const Leave = () => {
   const [decidingId, setDecidingId] = useState(null);
   const [decidingAction, setDecidingAction] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [statusFilter, setStatusFilter] = useState('All');
 
   // toast
   const [toast, setToast] = useState(null);
