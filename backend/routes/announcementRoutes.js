@@ -9,7 +9,7 @@ import {
 const announcementRouter = express.Router();
 
 announcementRouter.post('/', verifyToken, isAdmin, createAnnouncement);
-announcementRouter.get('/', verifyToken, isAdmin, getAnnouncements);
+announcementRouter.get('/', verifyToken, getAnnouncements);
 announcementRouter.delete('/:id', verifyToken, isAdmin, deleteAnnouncement);
 
 export default announcementRouter;
