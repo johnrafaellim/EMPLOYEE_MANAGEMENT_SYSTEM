@@ -228,7 +228,7 @@ export const decideLeave = async (req, res, next) => {
     const { id } = req.params;
     const { status } = req.body; // Approved or Rejected
 
-    if (!status || !['approved', 'Rejected'].includes(status)) {
+    if (!status || !['Approved', 'Rejected'].includes(status)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid status',
@@ -248,7 +248,7 @@ export const decideLeave = async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: `Leave request has been ${status.toLwerCase()}`,
+      message: `Leave request has been ${status.toLowerCase()}`,
       leave,
     });
   } catch (e) {

@@ -109,7 +109,7 @@ const Leave = () => {
     setDecidingAction(nextStatus);
     try {
       const response = await fetch(
-        `${import.meta.env.BACKEND_URL}/api/admin/attendance/leave/${leaveId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/attendance/leave/${leaveId}`,
         {
           method: 'PUT',
           headers: {
