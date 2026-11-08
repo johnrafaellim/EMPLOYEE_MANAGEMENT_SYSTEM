@@ -6,7 +6,7 @@ import {
   displayDate,
   employee,
   today,
-} from "../utils/employeePanelData.js";
+} from "../data/employeePanelData.js";
 import Status from "../components/Status.jsx";
 import { getEmployeeUser } from "../auth/employeeAuth.js";
 import { attendancePageStyles as s } from "../assets/dummyStyles";
