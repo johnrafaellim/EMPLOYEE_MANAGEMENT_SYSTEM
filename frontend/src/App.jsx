@@ -6,6 +6,7 @@ import Login from "./pages/Login.jsx";
 import PublicOnlyRoute from "./routes/PublicOnlyRoute.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import { useEffect } from "react";
+import Payslip from "./pages/Payslip.jsx";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/" exact element={<Home />}>
             <Route index element={<Dashboard />} />
             <Route path="attendance" element={<Attendance />} />
+            <Route path="payslip" element={<Payslip />} />
           </Route>
         </Route>
       </Routes>
